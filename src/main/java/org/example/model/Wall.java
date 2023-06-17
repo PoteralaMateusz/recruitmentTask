@@ -15,17 +15,21 @@ public class Wall implements Structure, CompositeBlock {
     }
 
     public void addBlock(Block block) {
-        blocks.add(block);
+        if (block != null) {
+            blocks.add(block);
+        }
     }
 
     public void deleteBlock(Block block) throws BlockNotFoundException {
-        blocks.remove(blocks
-                .stream()
-                .filter(block1 -> block1.equals(block))
-                .findFirst()
-                .orElseThrow(() ->
-                        new BlockNotFoundException(block)
-                ));
+        if (block != null) {
+            blocks.remove(blocks
+                    .stream()
+                    .filter(block1 -> block1.equals(block))
+                    .findFirst()
+                    .orElseThrow(() ->
+                            new BlockNotFoundException(block)
+                    ));
+        }
     }
 
     @Override
