@@ -1,27 +1,31 @@
 package org.example.model;
 
+import org.example.exceptions.BlockNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Wall implements Structure,CompositeBlock{
+public class Wall implements Structure, CompositeBlock {
     private final List<Block> blocks;
 
     public Wall() {
         this.blocks = new ArrayList<>();
     }
 
-    public void addBlock(Block block){
+    public void addBlock(Block block) {
         blocks.add(block);
     }
 
-    public void deleteBlock(Block block){
+    public void deleteBlock(Block block) throws BlockNotFoundException {
         blocks.remove(blocks
                 .stream()
                 .filter(block1 -> block1.equals(block))
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() ->
+                        new BlockNotFoundException(block)
+                ));
     }
 
     @Override
