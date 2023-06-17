@@ -17,7 +17,11 @@ public class Wall implements Structure,CompositeBlock{
     }
 
     public void deleteBlock(Block block){
-        blocks.remove(block);
+        blocks.remove(blocks
+                .stream()
+                .filter(block1 -> block1.equals(block))
+                .findFirst()
+                .orElse(null));
     }
 
     @Override
